@@ -16,8 +16,9 @@ from parsel import Selector
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
-
+import random
+# Setting the execution mode
+headless_option = len(sys.argv) >= 2 and sys.argv[1].upper() == 'HEADLESS'
 def create_search_url(title, location, *include):
     result = ""
     base_url = "http://www.google.com/search?q=+-intitle:%22profiles%22+site:linkedin.com/in/+OR+site:linkedin.com/pub/"
@@ -36,7 +37,8 @@ max_page = int(config.get("search", "max_page"))
 all_urls = []
 
 options = webdriver.ChromeOptions()
-# options.add_argument('headless')
+if headless_option:
+    options.add_argument('headless')
 
 # specifies the path to the chromedriver.exe
 driver = webdriver.Chrome('/media/vuxuantuan/01D34498C386B760/Work From Home/Scrapper/chromedriver')
@@ -50,7 +52,7 @@ address = config.get("search", "address")
 driver.get(create_search_url(keyword, address))
 sleep(10)
 while True:
-    sleep(60)
+    sleep(random.randint(10,60))
 
     # find the urls
     urls = driver.find_elements_by_class_name('g')
@@ -75,14 +77,14 @@ while True:
         next_page.click()
     except:
         print('\n end at page:' + str(page - 1) + ' (last page)')
+        print(f"\n number links is {len(all_urls)}")
         break
 log = open(config.get("system", "name_file_save_link"),"a+")
 driver.quit()
 for link_url in all_urls:
     log.write(link_url+"\n")
 log.close()
-# Setting the execution mode
-headless_option = len(sys.argv) >= 2 and sys.argv[1].upper() == 'HEADLESS'
+
 
 
 if len(all_urls) == 0:
