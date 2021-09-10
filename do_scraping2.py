@@ -152,7 +152,7 @@ while count_sheet+len_sheet-1>=len(all_urls):
 
         for j in range(len(data)):
             worksheet.write(i + 1, j, data[j])
-        print("Write done 1 sheet")
+    print("Write done 1 sheet")
 workbook.close()
 
 print("Scraping Ended")
