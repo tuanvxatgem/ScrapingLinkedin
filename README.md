@@ -9,6 +9,7 @@ pip install -r requirements.txt
 
 Run `LinkedinScraping\configurator.py` following the prompted instructions. Or change in file config.ini
 ## To Run:
+Run with normal mode:
 '''
 python do_scraping2.py
 '''
