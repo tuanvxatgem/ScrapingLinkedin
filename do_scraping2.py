@@ -18,6 +18,8 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import random
+import pandas as pd
+
 # Setting the execution mode
 headless_option = len(sys.argv) >= 2 and sys.argv[1].upper() == 'HEADLESS'
 def create_search_url(title, location, *include):
@@ -46,14 +48,16 @@ driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), optio
 
 # always start from page 1
 page = 1
-import pandas as pd
-
+#set up to seach
+range_time_check_not_robot = config.get("search", "range_time_check_not_robot").split(",")
+range_time_stay_in_one_page = config.get("search", "range_time_stay_in_one_page").split(",")
 keyword = config.get("search", "keyword")
 address = config.get("search", "address")
 driver.get(create_search_url(keyword, address))
-sleep(10)
+sleep(random.randint(int(range_time_stay_in_one_page[0]), int(range_time_stay_in_one_page[1])))
 while True:
-    sleep(random.randint(25,60))
+    while not "https://www.google.com/search" in driver.current_url:
+        sleep(random.randint(int(range_time_check_not_robot[0]), int(range_time_check_not_robot[1])))
 
     # find the urls
     urls = driver.find_elements_by_class_name('g')
@@ -68,14 +72,19 @@ while True:
 
     # move to the next page
     page += 1
-
+    sleep(random.randint(int(range_time_stay_in_one_page[0]), int(range_time_stay_in_one_page[1])))
     if page > max_page:
         print('\n end at page:' + str(page - 1))
         break
-
+    while not "https://www.google.com/search" in driver.current_url:
+        sleep(random.randint(int(range_time_check_not_robot[0]), int(range_time_check_not_robot[1])))
     try:
-        next_page = driver.find_element_by_css_selector("a[aria-label='Page " + str(page) + "']")
-        next_page.click()
+        if "https://www.google.com/search" in driver.current_url:
+            sleep(random.randint(int(range_time_stay_in_one_page[0]), int(range_time_stay_in_one_page[1])))
+            next_page = driver.find_element_by_css_selector("a[aria-label='Page " + str(page) + "']")
+            next_page.click()
+        while not "https://www.google.com/search" in driver.current_url:
+            sleep(random.randint(int(range_time_check_not_robot[0]), int(range_time_check_not_robot[1])))
     except:
         print('\n end at page:' + str(page - 1) + ' (last page)')
         print(f"\n number links is {len(all_urls)}")
