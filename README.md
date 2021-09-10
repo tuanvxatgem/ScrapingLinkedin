@@ -10,6 +10,7 @@ pip install -r requirements.txt
 Run `LinkedinScraping\configurator.py` following the prompted instructions. Or change in file config.ini
 ## To Run:
 Run with normal mode:
+
 '''
 python do_scraping2.py
 '''
@@ -21,6 +22,7 @@ In this mode the script will do scraping without opening a real Chrome window.
 **Pros:** The scraping process is distributed into many threads to speed up to 4 times the performance. Moreover, in this way you can keep on doing your regular business on your computer as you don't have to keep the focus on any specific window.
 
 **Cons:** If you scrap many profiles (more than hundreds) and/or in unusual times (in the night) LinkedIn may prompt a Captcha to check that you are not a human. If this happens, there is no way for you to fill in the Captcha. The script will detect this particular situation and terminate the scraping with an alert: you will have hence to run the script in normal mode, do the captcha, and then you can proceed in scraping the profiles that were left.
+
 '''
 python do_scraping2.py HEADLESS
 '''
