@@ -4,6 +4,7 @@
 Install last version Google Chrome and python
 ## Installing:
 pip install -r requirements.txt
+
 Run `LinkedinScraping\configurator.py` following the prompted instructions. Or change in file config.ini
 ## To run
 python do_scraping2.py
