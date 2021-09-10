@@ -53,7 +53,7 @@ address = config.get("search", "address")
 driver.get(create_search_url(keyword, address))
 sleep(10)
 while True:
-    sleep(random.randint(10,60))
+    sleep(random.randint(25,60))
 
     # find the urls
     urls = driver.find_elements_by_class_name('g')
