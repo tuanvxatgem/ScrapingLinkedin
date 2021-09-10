@@ -5,6 +5,7 @@ import xlsxwriter
 from configparser import ConfigParser
 
 from Scraper import Scraper
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Loading of configurations
 from utils import ComplexEncoder
@@ -41,7 +42,7 @@ if headless_option:
     options.add_argument('headless')
 
 # specifies the path to the chromedriver.exe
-driver = webdriver.Chrome('/media/vuxuantuan/01D34498C386B760/Work From Home/Scrapper/chromedriver')
+driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
 
 # always start from page 1
 page = 1
