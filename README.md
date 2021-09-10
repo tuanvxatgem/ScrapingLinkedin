@@ -12,6 +12,7 @@ Run `LinkedinScraping\configurator.py` following the prompted instructions. Or c
 '''
 python do_scraping2.py
 '''
+
 If you need run with dont open a real Chrome window:
 ### Headless execution
 In this mode the script will do scraping without opening a real Chrome window.
